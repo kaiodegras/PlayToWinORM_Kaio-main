@@ -4,18 +4,10 @@ const conn = require("./db/conn");
 const Usuario = require("./models/Usuario");
 const Jogo = require("./models/Jogo")
 
-
-conn
-  .authenticate()
-  .then(() => {
-    console.log("Banco de Dados conectado e estrutura sicronizada!");
-  })
-  
-  .catch(() => {
-    console.log("Erro ao concetar/sincronizar o banco de dados:" + err);
-  });
-
 const express = require("express");
+
+const handlebars = require("express-handlebars")
+
 const app = express();
 
 app.use(
@@ -24,14 +16,14 @@ app.use(
   })
 
 );
-app.use(expresse.json());
+app.use(express.json());
 
 app.get("/usuarios/novo", (req, res) => {
-  res.sendFile(`${__dirname}/views/formUsuario.htlm`)
+  res.render("formUsuario");
 });
 
-app.get("/jogos/novo", (req, res) => {
-  res.sendFile(`${__dirname}/views/formJogo.html`)
+app.get("/", (req, res) => {
+  res.render("home");
 });
 
 app.post("/usuarios/novo", async (req, res) => {
@@ -75,3 +67,14 @@ app.post("/jogos/novo", async (req, res) => {
 app.listen(8000, () => {
   console.log("Server rodando na porta 8000!");
 });
+
+
+conn
+  .sync()
+  .then(() => {
+    console.log("Banco de Dados conectado e estrutura sicronizada!");
+  })
+  
+  .catch(() => {
+    console.log("Erro ao concetar/sincronizar o banco de dados:" + err);
+  });
