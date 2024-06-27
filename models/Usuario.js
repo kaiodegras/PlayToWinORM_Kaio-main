@@ -1,15 +1,15 @@
 const db = require("../db/conn");
-const {DataTypes} = require("sequelize")
+const { DataTypes } = require ("sequelize");
 
-const Usuario = db.define("Usuario",{
-    nickname:{
+const Usuario = db.define("Usuario", {
+    nickname: {
         type: DataTypes.STRING,
-        required:true,
+        required: true,
     },
-    nome:{
+    nome: {
         type: DataTypes.STRING,
-        required:true,
+        required: true,
     }
-})
+});
 
 module.exports = Usuario;
